@@ -6,6 +6,9 @@ import os
 
 data_dir = ".dict"
 
+if not os.path.exists(data_dir):
+	os.mkdir(data_dir)
+
 def pattern_1(doc):
 	attr = doc.xpath('//*[@id="phrsListTab"]/div[2]')
 	if len(attr) == 0:
