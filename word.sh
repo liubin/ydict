@@ -11,6 +11,9 @@ do
     b=$a
   fi 
 
-  python search.py $b
+  if [ "$b" != "" ];then
+    python search.py $b
+  fi 
+
 done
 
