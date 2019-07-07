@@ -12,8 +12,13 @@ if not os.path.exists(data_dir):
 def pattern_1(doc):
 	attr = doc.xpath('//*[@id="phrsListTab"]/div[2]')
 	if len(attr) == 0:
+		attr = doc.xpath('//*[@id="phrsListTab"]/div[1]')
+		if len(attr) == 0:
+			return ""
+
+	if len(attr[0]) == "":
 		return ""
-	# print attr
+
 	attr = attr[0][0]
 
 	s = ""
@@ -23,20 +28,6 @@ def pattern_1(doc):
 
 	return s
 
-
-def pattern_2(doc):
-	attr = doc.xpath('//*[@id="phrsListTab"]/div[1]')
-	if len(attr) == 0:
-		return ""
-	# print attr
-	attr = attr[0][0]
-
-	s = ""
-	for li in attr:
-	    s = s + li.text
-	    # print li.text
-
-	return s
 
 def download_audio(word):
 	url = "http://dict.youdao.com/dictvoice?audio=%s&type=1" % word
@@ -68,8 +59,6 @@ def load_from_net(word):
 
 	s = pattern_1(doc)
 
-	if s == "":
-		s = pattern_2(doc)
 	if s != "":
 		save_content(word, s)
 		download_audio(word)
